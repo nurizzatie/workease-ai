@@ -1,25 +1,19 @@
 import React from "react";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import Sidebar from "../components/Sidebar/Sidebar";
+import DashboardHeader from "../components/Dashboard/DashboardHeader";
+import DashboardGrid from "../components/Dashboard/DashboardGrid";
 
-const ManagerDashboard = () => {
+export default function ManagerDashboard() {
   return (
-    <div className="p-8 text-center">
-      <h1 className="text-3xl font-semibold text-purple-600">Manager Dashboard</h1>
-      <p className="mt-4 text-gray-600">Welcome to WorkEase AI 👋</p>
-      <button onClick={handleLogout}>Logout</button>
+    <div className="min-h-screen bg-gray-50 font-sans flex">
+      {/* Sidebar (fixed) */}
+      <Sidebar />
+
+      {/* Main Content */}
+      <main className="flex-1 ml-64 p-6 md:p-8">
+        <DashboardHeader />
+        <DashboardGrid />
+      </main>
     </div>
   );
-};
-
-const handleLogout = async () => {
-  try {
-    await signOut(auth);
-    alert("Logged out successfully!");
-    window.location.href = "/"; // redirect to login page
-  } catch (error) {
-    console.error("Logout error:", error);
-  }
-};
-
-export default ManagerDashboard;
+}
