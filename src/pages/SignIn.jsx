@@ -4,8 +4,9 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import bg from "../assets/background.png";
 import logo from "../assets/WorkEase Logo.png";
@@ -42,7 +43,39 @@ const SignIn = () => {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      await handleRedirect(result.user.uid);
+      const user = result.user;
+
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (!docSnap.exists()) {
+        // Create a new user document if not found
+        await setDoc(docRef, {
+          name: user.displayName || "New User",
+          email: user.email,
+          role: "employee", // default role
+          createdAt: new Date(),
+        });
+        console.log("✅ New user created in Firestore");
+      }
+
+      // Then redirect based on the user's role
+      await handleRedirect(user.uid);
+    } catch (error) {
+      setMessage(`❌ ${error.message}`);
+    }
+  };
+
+  // Handle forgot password
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setMessage("⚠️ Please enter your email first.");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setMessage("✅ Password reset email sent! Please check your inbox.");
     } catch (error) {
       setMessage(`❌ ${error.message}`);
     }
@@ -107,7 +140,7 @@ const SignIn = () => {
 
           <div className="text-right">
             <a
-              href="#"
+              onClick={handleForgotPassword}
               className="text-sm text-purple-700 hover:text-purple-900 underline"
             >
               Forgot Password?
@@ -143,13 +176,6 @@ const SignIn = () => {
             <span className="text-sm font-medium text-gray-700">Google</span>
           </button>
 
-          <button
-            disabled
-            className="flex items-center space-x-2 px-4 py-2 rounded-full bg-white shadow-md opacity-60 cursor-not-allowed"
-          >
-            <FaMicrosoft className="text-purple-600" />
-            <span className="text-sm font-medium text-gray-700">Outlook</span>
-          </button>
         </div>
       </div>
     </div>
