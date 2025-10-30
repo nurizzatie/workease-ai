@@ -22,7 +22,7 @@ export default function Sidebar() {
   const navItems = [
     { icon: <LayoutGrid size={20} />, text: "Dashboard", path: "/manager" },
     { icon: <Inbox size={20} />, text: "Inbox", path: "/inbox", alertCount: 2 },
-    { icon: <CheckSquare size={20} />, text: "Task", path: "/task" },
+    { icon: <CheckSquare size={20} />, text: "Task", path: "/tasks" },
     { icon: <Settings size={20} />, text: "Settings", path: "/settings" },
   ];
 

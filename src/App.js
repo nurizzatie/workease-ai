@@ -7,6 +7,7 @@ import EmployeeDashboard from "./pages/EmployeeDashboard";
 import ManagerDashboard from "./pages/ManagerDashboard";
 import { Toaster } from "react-hot-toast";
 import ManagerInbox from "./pages/ManagerInbox";
+import ManagerTasks from "./pages/ManagerTasks";
 
 function App() {
   return (
@@ -40,6 +41,11 @@ function App() {
               <ManagerInbox />
             </ProtectedRoute>
           }
+        />
+
+        <Route 
+          path="/tasks" 
+          element={<ManagerTasks />} 
         />
       </Routes>
     </Router>
