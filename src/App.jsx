@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import DashboardPage from "./pages/ManagerDashboard";
 import ManagerInbox from "./pages/ManagerInbox";
-import SettingsPage from "./pages/SettingsPage";
+import SettingsPage from "./pages/ManagerSettings";
 import SignIn from "./pages/SignIn";
 import { Toaster } from "react-hot-toast";
 import ManagerTasks from "./pages/ManagerTasks";

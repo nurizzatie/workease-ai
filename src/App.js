@@ -8,6 +8,7 @@ import ManagerDashboard from "./pages/ManagerDashboard";
 import { Toaster } from "react-hot-toast";
 import ManagerInbox from "./pages/ManagerInbox";
 import ManagerTasks from "./pages/ManagerTasks";
+import ManagerSettings from "./pages/ManagerSettings";
 
 function App() {
   return (
@@ -46,6 +47,11 @@ function App() {
         <Route 
           path="/tasks" 
           element={<ManagerTasks />} 
+        />
+
+        <Route 
+          path="/settings" 
+          element={<ManagerSettings />} 
         />
       </Routes>
     </Router>

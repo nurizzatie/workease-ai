@@ -8,7 +8,7 @@ export default function ManagerInbox() {
   const [activeTab, setActiveTab] = useState("Open");
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans flex">
+    <div className="min-h-screen bg-white-50 font-sans flex">
       <Sidebar />
 
       {/* Main content */}
